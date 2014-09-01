@@ -1,0 +1,25 @@
+{
+    "name": "happyr/birthday-bundle",
+    "type": "symfony-bundle",
+    "description": "Happyr birthday bundle gives you a nicer way to render birthday widgets",
+    "keywords": ["Birthday"],
+    "homepage": "http://developer.happyr.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias@happyr.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/framework-bundle": "~2.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "Happyr\\BirthBundle\\": ""
+        }
+    },
+    "target-dir": "Happyr/BirthdayBundle"
+}
+

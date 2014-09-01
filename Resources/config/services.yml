@@ -1,0 +1,8 @@
+parameters:
+#    happyr_birthday.example.class: Happyr\BirthdayBundle\Example
+
+services:
+  happyr.birthday.form.birthday:
+    class: Happyr\BirthdayBundle\From\BirthdayType
+    tags:
+      - { name: form.type, alias: happyr_birthday }

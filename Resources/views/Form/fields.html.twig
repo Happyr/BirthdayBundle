@@ -1,0 +1,14 @@
+{% block happyr_birthday_widget %}
+    {% spaceless %}
+            <div {{ block('widget_container_attributes') }}>
+                <div class="datetime_widget">
+                    {{ date_pattern|replace({
+                    '{{ day }}': form_widget(form.year),
+                    '{{ month }}': form_widget(form.month),
+                    '{{ year }}':  '',
+                    })|raw }}
+                </div>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
