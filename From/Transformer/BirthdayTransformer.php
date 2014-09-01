@@ -9,10 +9,10 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * @author Tobias Nyholm
  */
-class IncompleteDateTransformer implements DataTransformerInterface
+class BirthdayTransformer implements DataTransformerInterface
 {
     /**
-     * Do nothing when transforming from norm -> view
+     * Do nothing when transforming from model -> norm
      */
     public function transform($object)
     {
@@ -26,21 +26,7 @@ class IncompleteDateTransformer implements DataTransformerInterface
      */
     public function reverseTransform($date)
     {
-        if (!is_array($date)) {
-            return $date;
-        }
 
-        if (empty($date['year'])) {
-            return $date;
-        }
-
-        if (empty($date['day'])) {
-            $date['day']=1;
-        }
-
-        if (empty($date['month'])) {
-            $date['month']=1;
-        }
 
         return $date;
     }
