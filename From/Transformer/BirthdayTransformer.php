@@ -14,19 +14,38 @@ class BirthdayTransformer implements DataTransformerInterface
     /**
      * Do nothing when transforming from model -> norm
      */
-    public function transform($object)
+    public function transform($date)
     {
-        return $object;
+        if ($date === null) {
+            return null;
+        }
+
+        return array(
+            'year'=>$date->format('Y'),
+            'date' =>$date
+        );
     }
 
     /**
-     * If some components of the date is missing we'll add those.
-     * This reverse transform will work when month and/or day is missing
+     * @param mixed $data
      *
+     * @return \DateTime|mixed
      */
-    public function reverseTransform($date)
+    public function reverseTransform($data)
     {
+        $default = array(
+            'year'=>null,
+            'date'=>null,
+        );
 
+        $data = array_merge($default, $data);
+
+        //error checks
+        if (empty($data['year']) || !isset($data['date'])) {
+            return 'error';
+        }
+
+        $date = new \DateTime($data['date']->format($data['year'].'-m-d'));
 
         return $date;
     }

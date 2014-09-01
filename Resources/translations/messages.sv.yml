@@ -1,0 +1,5 @@
+happyr.birthday:
+  form:
+    year: 'År'
+    month: 'Månad'
+    day: 'Dag'

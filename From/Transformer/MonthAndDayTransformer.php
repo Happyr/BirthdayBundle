@@ -31,15 +31,8 @@ class MonthAndDayTransformer implements DataTransformerInterface
         }
 
         if (empty($date['year'])) {
-            return $date;
-        }
-
-        if (empty($date['day'])) {
-            $date['day']=1;
-        }
-
-        if (empty($date['month'])) {
-            $date['month']=1;
+            //2000 was a leap year
+            $date['year'] = 2000;
         }
 
         return $date;
