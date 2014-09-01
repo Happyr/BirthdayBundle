@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Happyr\\BirthBundle\\": ""
+            "Happyr\\BirthdayBundle\\": ""
         }
     },
     "target-dir": "Happyr/BirthdayBundle"
