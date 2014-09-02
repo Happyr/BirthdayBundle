@@ -1,0 +1,8 @@
+happyr.birthday:
+  form:
+    year:
+      max_message: 'Oldest age allowed is %limit% years.'
+      min_message: 'Youngest age allowed is %limit% years.'
+      invalid: 'Invalid date'
+    month.invalid: 'Invalid date'
+    day.invalid: 'Invalid date'

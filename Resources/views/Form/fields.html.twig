@@ -3,12 +3,6 @@
 {% block happyr_birthday_widget %}
     {% spaceless %}
         <div class="happyr_birthday_widget" {{ block('widget_container_attributes') }}>
-
-            {{ form_errors(form) }}
-            {{ form_errors(form.year) }}
-            {{ form_errors(form.month) }}
-            {{ form_errors(form.day) }}
-
             {{ form_widget(form.year) }}
             {{ form_widget(form.month) }}
             {{ form_widget(form.day) }}

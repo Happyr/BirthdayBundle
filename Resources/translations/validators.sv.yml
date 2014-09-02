@@ -1,6 +1,8 @@
 happyr.birthday:
   form:
-    incomplete: 'Du måste ange år, månad och dag.'
     year:
-      max_message: 'Den ålder du angav är för stort. Största tillåtna ålder är %limit% år.'
-      min_message: 'Den ålder du angav är för liten. Minsta tillåtna ålder är %limit% år.'
+      max_message: 'Hösta tillåtna ålder är %limit% år.'
+      min_message: 'Minsta tillåtna ålder är %limit% år.'
+      invalid: 'Felaktigt datum'
+    month.invalid: 'Felaktigt datum'
+    day.invalid: 'Felaktigt datum'

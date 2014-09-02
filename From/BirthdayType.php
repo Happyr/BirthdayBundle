@@ -83,57 +83,62 @@ class BirthdayType extends AbstractType
     protected function addValidation(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $event) use ($options) {
-                $form = $event->getForm();
-                $date=$event->getData();
+            $form = $event->getForm();
+            $date=$event->getData();
 
-                $yearField = $form->get('year');
+            $yearField = $form->get('year');
 
-                /*
-                 * Verify date
-                 */
-                if ($date->format('Y') != $yearField->getData()) {
-                    $yearField->addError(new FormError('happyr.birthday.form.year.invalid'));
-                    return;
-                }
+            /*
+             * Verify date
+             */
+            if ($date->format('Y') != $yearField->getData()) {
+                $form->addError(new FormError('happyr.birthday.form.year.invalid'));
+                return;
+            }
 
-                if ($date->format('n') != $form->get('month')->getData()) {
-                    $form->get('month')->addError(new FormError('happyr.birthday.form.month.invalid'));
-                    return;
-                }
+            if ($date->format('n') != $form->get('month')->getData()) {
+                $form->addError(new FormError('happyr.birthday.form.month.invalid'));
+                return;
+            }
 
-                if ($date->format('j') != $form->get('day')->getData()) {
-                    $form->get('day')->addError(new FormError('happyr.birthday.form.month.invalid'));
-                    return;
-                }
+            if ($date->format('j') != $form->get('day')->getData()) {
+                $form->addError(new FormError('happyr.birthday.form.day.invalid'));
+                return;
+            }
 
-                /*
-                 * Verify age
-                 */
-                $now = new \DateTime();
-                $age = $date->diff($now)->format('%r%y');
+            /*
+             * Verify age
+             */
+            $now = new \DateTime();
+            $age = $date->diff($now)->format('%r%y');
 
-                if ($age > $options['max_age']) {
-                    $yearField->addError(new FormError('happyr.birthday.form.year.max_message', null, array('%limit%'=>$options['max_age'])));
-                } else if ($age < $options['min_age']) {
-                    $yearField->addError(new FormError('happyr.birthday.form.year.min_message', null, array('%limit%'=>$options['min_age'])));
-                }
-            });
+            if ($age > $options['max_age']) {
+                $form->addError(new FormError('happyr.birthday.form.year.max_message', null, array('%limit%'=>$options['max_age'])));
+            } else if ($age < $options['min_age']) {
+                $form->addError(new FormError('happyr.birthday.form.year.min_message', null, array('%limit%'=>$options['min_age'])));
+            }
+        });
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
         $resolver->setDefaults(array(
-                'max_age' => 120,
-                'min_age' => 0,
-                'compound'=>true,
-                'months'         => range(1, 12),
-                'days'           => range(1, 31),
-                'input'          => 'datetime',
-                'empty_value'    => array('year' => 'happyr.birthday.form.year', 'month' => 'happyr.birthday.form.month', 'day' => 'happyr.birthday.form.day'),
-                'format'         => self::DEFAULT_FORMAT,
-            ));
+            'max_age' => 120,
+            'min_age' => 0,
+            'compound'=>true,
+            'months'         => range(1, 12),
+            'days'           => range(1, 31),
+            'input'          => 'datetime',
+            'empty_value'    => array(
+                'year' => 'happyr.birthday.form.year',
+                'month' => 'happyr.birthday.form.month',
+                'day' => 'happyr.birthday.form.day'
+            ),
+            'format'         => self::DEFAULT_FORMAT,
+            'error_bubbling' => false,
+        ));
     }
+
 
     private function formatTimestamps(\IntlDateFormatter $formatter, $regex, array $timestamps)
     {
