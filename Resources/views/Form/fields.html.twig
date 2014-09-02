@@ -2,13 +2,16 @@
 
 {% block happyr_birthday_widget %}
     {% spaceless %}
-        <div class="happyr_brithday_widget" {{ block('widget_container_attributes') }}>
+        <div class="happyr_birthday_widget" {{ block('widget_container_attributes') }}>
 
-            {{ form_errors(form.date) }}
+            {{ form_errors(form) }}
             {{ form_errors(form.year) }}
+            {{ form_errors(form.month) }}
+            {{ form_errors(form.day) }}
+
             {{ form_widget(form.year) }}
-            {{ form_widget(form.date.month) }}
-            {{ form_widget(form.date.day) }}
+            {{ form_widget(form.month) }}
+            {{ form_widget(form.day) }}
         </div>
     {% endspaceless %}
 {% endblock %}

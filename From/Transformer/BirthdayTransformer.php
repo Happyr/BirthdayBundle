@@ -22,7 +22,8 @@ class BirthdayTransformer implements DataTransformerInterface
 
         return array(
             'year'=>$date->format('Y'),
-            'date' =>$date
+            'month'=>$date->format('n'),
+            'day'=>$date->format('j'),
         );
     }
 
@@ -33,20 +34,8 @@ class BirthdayTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-        $default = array(
-            'year'=>null,
-            'date'=>null,
-        );
+        $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
 
-        $data = array_merge($default, $data);
-
-        //error checks
-        if (empty($data['year']) || !isset($data['date'])) {
-            return 'error';
-        }
-
-        $date = new \DateTime($data['date']->format($data['year'].'-m-d'));
-
-        return $date;
+       return $date;
     }
 }
