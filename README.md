@@ -1,7 +1,7 @@
 Happyr Birthday Bundle
 ======================
 
-Get a nice looking form for birthdays. Enter the year manually and then drop down for.
+Get a nice looking form for birthdays. Enter the year manually and then drop down for month and day.
 
 
 ## Install
