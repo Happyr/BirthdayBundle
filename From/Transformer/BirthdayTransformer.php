@@ -34,6 +34,10 @@ class BirthdayTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
+        if ($data['year']===null || $data['month']===null || $data['day']===null) {
+            return null;
+        }
+
         $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
 
        return $date;

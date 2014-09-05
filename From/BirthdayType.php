@@ -86,6 +86,10 @@ class BirthdayType extends AbstractType
             $form = $event->getForm();
             $date=$event->getData();
 
+            if ($date === null) {
+                return;
+            }
+
             $yearField = $form->get('year');
 
             /*
