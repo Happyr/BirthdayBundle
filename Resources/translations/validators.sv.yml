@@ -1,5 +1,6 @@
 happyr.birthday:
   form:
+    incomplete: 'Datumet är bara delvis ifyllt.'
     year:
       max_message: 'Hösta tillåtna ålder är %limit% år.'
       min_message: 'Minsta tillåtna ålder är %limit% år.'

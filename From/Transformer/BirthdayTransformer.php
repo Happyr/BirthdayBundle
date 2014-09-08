@@ -16,7 +16,7 @@ class BirthdayTransformer implements DataTransformerInterface
      */
     public function transform($date)
     {
-        if ($date === null) {
+        if ($date === null || !($date instanceof \DateTime)) {
             return null;
         }
 
@@ -34,8 +34,12 @@ class BirthdayTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-        if ($data['year']===null || $data['month']===null || $data['day']===null) {
+        if ($data['year']===null && $data['month']===null && $data['day']===null) {
+            //if left untouched
             return null;
+        } elseif ($data['year']===null || $data['month']===null || $data['day']===null) {
+            //if just partially filled in
+            return 'incomplete';
         }
 
         $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
