@@ -1,5 +1,6 @@
 happyr.birthday:
   form:
+    future: 'The date you entered is in the future.'
     incomplete: 'Date is incomplete'
     year:
       max_message: 'Oldest age allowed is %limit% years.'

@@ -120,7 +120,9 @@ class BirthdayType extends AbstractType
             $now = new \DateTime();
             $age = $date->diff($now)->format('%r%y');
 
-            if ($age > $options['max_age']) {
+            if ($age < 0) {
+                $form->addError(new FormError('happyr.birthday.form.future'));
+            } else if ($age > $options['max_age']) {
                 $form->addError(new FormError('happyr.birthday.form.year.max_message', null, array('%limit%'=>$options['max_age'])));
             } else if ($age < $options['min_age']) {
                 $form->addError(new FormError('happyr.birthday.form.year.min_message', null, array('%limit%'=>$options['min_age'])));
