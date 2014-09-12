@@ -21,9 +21,9 @@ class BirthdayTransformer implements DataTransformerInterface
         }
 
         return array(
-            'year'=>$date->format('Y'),
-            'month'=>$date->format('n'),
-            'day'=>$date->format('j'),
+            'year' => $date->format('Y'),
+            'month' => $date->format('n'),
+            'day' => $date->format('j'),
         );
     }
 
@@ -34,16 +34,18 @@ class BirthdayTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-        if ($data['year']===null && $data['month']===null && $data['day']===null) {
+        if ($data['year'] === null && $data['month'] === null && $data['day'] === null) {
             //if left untouched
             return null;
-        } elseif ($data['year']===null || $data['month']===null || $data['day']===null) {
+        } elseif ($data['year'] === null || $data['month'] === null || $data['day'] === null) {
             //if just partially filled in
             return 'incomplete';
+        } elseif (!is_int($data['year']) || strlen($data['year']) != 4 || $data['year'] < 0) {
+            return 'error';
         }
 
         $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
 
-       return $date;
+        return $date;
     }
 }

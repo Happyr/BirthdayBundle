@@ -6,5 +6,6 @@ happyr.birthday:
       max_message: 'Hösta tillåtna ålder är %limit% år.'
       min_message: 'Minsta tillåtna ålder är %limit% år.'
       invalid: 'Felaktigt datum'
+      format_error: 'Ange ett årtal med 4 siffror.'
     month.invalid: 'Felaktigt datum'
     day.invalid: 'Felaktigt datum'

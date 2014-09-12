@@ -92,6 +92,10 @@ class BirthdayType extends AbstractType
                 $form->addError(new FormError('happyr.birthday.form.incomplete'));
                 $event->setData(null);
                 return;
+            } elseif ($date==='error') {
+                $form->addError(new FormError('happyr.birthday.form.year.format_error'));
+                $event->setData(null);
+                return;
             }
 
             $yearField = $form->get('year');
