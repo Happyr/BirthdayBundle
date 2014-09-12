@@ -96,6 +96,10 @@ class BirthdayType extends AbstractType
                 $form->addError(new FormError('happyr.birthday.form.year.format_error'));
                 $event->setData(null);
                 return;
+            } elseif ($date==='unknown_error') {
+                $form->addError(new FormError('happyr.birthday.form.unknown_error'));
+                $event->setData(null);
+                return;
             }
 
             $yearField = $form->get('year');

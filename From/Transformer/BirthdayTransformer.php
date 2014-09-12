@@ -44,7 +44,11 @@ class BirthdayTransformer implements DataTransformerInterface
             return 'error';
         }
 
-        $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
+        try {
+            $date = new \DateTime(sprintf('%d-%d-%d', $data['year'], $data['month'], $data['day']));
+        } catch (\Exception $e) {
+            return 'unknown_error';
+        }
 
         return $date;
     }

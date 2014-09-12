@@ -2,6 +2,7 @@ happyr.birthday:
   form:
     future: 'The date you entered is in the future.'
     incomplete: 'Date is incomplete'
+    unknown_error: 'The birthday field does not look right.'
     year:
       max_message: 'Oldest age allowed is %limit% years.'
       min_message: 'Youngest age allowed is %limit% years.'
