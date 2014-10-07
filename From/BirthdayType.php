@@ -51,8 +51,11 @@ class BirthdayType extends AbstractType
         $formatter->setLenient(false);
 
 
+        $currentYear=date('Y');
         // Only pass a subset of the options to children
         $yearOptions['attr']['placeholder'] = $options['empty_value']['year'];
+        $yearOptions['attr']['min'] = $currentYear-$options['max_age'];
+        $yearOptions['attr']['max'] = $currentYear-$options['min_age'];
         $monthOptions['choices'] = $this->formatTimestamps($formatter, '/[M|L]+/', $this->listMonths($options['months']));
         $monthOptions['empty_value'] = $options['empty_value']['month'];
         $dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
