@@ -3,6 +3,8 @@ Happyr Birthday Bundle
 
 Get a nice looking form for birthdays. Enter the year manually and then drop down for month and day.
 
+![Example how it will look](/Resources/docs/example.png)
+
 
 ## Install
 
