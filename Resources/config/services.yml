@@ -4,5 +4,6 @@ parameters:
 services:
   happyr.birthday.form.birthday:
     class: Happyr\BirthdayBundle\From\BirthdayType
+    arguments: [@translator]
     tags:
       - { name: form.type, alias: happyr_birthday }

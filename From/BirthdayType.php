@@ -13,7 +13,9 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\CallbackValidator;
 
 /**
@@ -31,6 +33,21 @@ class BirthdayType extends AbstractType
         \IntlDateFormatter::MEDIUM,
         \IntlDateFormatter::SHORT,
     );
+
+    /**
+     * @var TranslatorInterface translator
+     */
+    private $translator;
+
+    /**
+     * BirthdayType constructor.
+     *
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -56,10 +73,14 @@ class BirthdayType extends AbstractType
         $yearOptions['attr']['placeholder'] = $options['empty_value']['year'];
         $yearOptions['attr']['min'] = $currentYear-$options['max_age'];
         $yearOptions['attr']['max'] = $currentYear-$options['min_age'];
+
         $monthOptions['choices'] = $this->formatTimestamps($formatter, '/[M|L]+/', $this->listMonths($options['months']));
-        $monthOptions['empty_value'] = $options['empty_value']['month'];
+        $monthOptions['empty_value'] = $this->translator->trans($options['empty_value']['month']);
+        $monthOptions['choice_translation_domain'] = false;
+
         $dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
-        $dayOptions['empty_value'] = $options['empty_value']['day'];
+        $dayOptions['empty_value'] = $this->translator->trans($options['empty_value']['day']);
+        $dayOptions['choice_translation_domain'] = false;
 
 
         // Append generic carry-along options
@@ -141,7 +162,7 @@ class BirthdayType extends AbstractType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'max_age' => 120,
