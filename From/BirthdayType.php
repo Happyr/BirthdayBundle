@@ -88,13 +88,7 @@ class BirthdayType extends AbstractType
             $yearOptions[$passOpt] = $monthOptions[$passOpt] = $dayOptions[$passOpt] = $options[$passOpt];
         }
 
-        $builder
-            ->add('year', 'integer', $yearOptions)
-            ->add('month', 'choice', $monthOptions)
-            ->add('day', 'choice', $dayOptions)
-            ->addViewTransformer(new BirthdayTransformer())
-            ->setAttribute('formatter', $formatter);
-
+        $this->doBuildForm($builder, $yearOptions, $monthOptions, $dayOptions, $formatter);
         $this->addValidation($builder, $options);
     }
 
@@ -249,5 +243,24 @@ class BirthdayType extends AbstractType
     public function getName()
     {
         return 'happyr_birthday';
+    }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param $yearOptions
+     * @param $monthOptions
+     * @param $dayOptions
+     * @param $formatter
+     *
+     * @return \Symfony\Component\Form\FormConfigBuilderInterface
+     */
+    protected function doBuildForm(FormBuilderInterface $builder, $yearOptions, $monthOptions, $dayOptions, $formatter)
+    {
+        return $builder
+            ->add('year', 'integer', $yearOptions)
+            ->add('month', 'choice', $monthOptions)
+            ->add('day', 'choice', $dayOptions)
+            ->addViewTransformer(new BirthdayTransformer())
+            ->setAttribute('formatter', $formatter);
     }
 }
