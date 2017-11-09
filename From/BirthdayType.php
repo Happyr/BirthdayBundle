@@ -5,7 +5,9 @@ namespace Happyr\BirthdayBundle\From;
 use Happyr\BirthdayBundle\From\Transformer\BirthdayTransformer;
 use Happyr\BirthdayBundle\From\Transformer\MonthAndDayTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -70,16 +72,16 @@ class BirthdayType extends AbstractType
 
         $currentYear=date('Y');
         // Only pass a subset of the options to children
-        $yearOptions['attr']['placeholder'] = $options['empty_value']['year'];
+        $yearOptions['attr']['placeholder'] = $options['placeholder']['year'];
         $yearOptions['attr']['min'] = $currentYear-$options['max_age'];
         $yearOptions['attr']['max'] = $currentYear-$options['min_age'];
 
         $monthOptions['choices'] = $this->formatTimestamps($formatter, '/[M|L]+/', $this->listMonths($options['months']));
-        $monthOptions['empty_value'] = $this->translator->trans($options['empty_value']['month']);
+        $monthOptions['placeholder'] = $this->translator->trans($options['placeholder']['month']);
         $monthOptions['choice_translation_domain'] = false;
 
         $dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
-        $dayOptions['empty_value'] = $this->translator->trans($options['empty_value']['day']);
+        $dayOptions['placeholder'] = $this->translator->trans($options['placeholder']['day']);
         $dayOptions['choice_translation_domain'] = false;
 
 
@@ -165,7 +167,7 @@ class BirthdayType extends AbstractType
             'months'         => range(1, 12),
             'days'           => range(1, 31),
             'input'          => 'datetime',
-            'empty_value'    => array(
+            'placeholder'    => array(
                 'year' => 'happyr.birthday.form.year',
                 'month' => 'happyr.birthday.form.month',
                 'day' => 'happyr.birthday.form.day'
@@ -252,9 +254,9 @@ class BirthdayType extends AbstractType
     protected function doBuildForm(FormBuilderInterface $builder, $yearOptions, $monthOptions, $dayOptions, $formatter)
     {
         return $builder
-            ->add('year', 'integer', $yearOptions)
-            ->add('month', 'choice', $monthOptions)
-            ->add('day', 'choice', $dayOptions)
+            ->add('year', IntegerType::class, $yearOptions)
+            ->add('month', ChoiceType::class, $monthOptions)
+            ->add('day', ChoiceType::class, $dayOptions)
             ->addViewTransformer(new BirthdayTransformer())
             ->setAttribute('formatter', $formatter);
     }
