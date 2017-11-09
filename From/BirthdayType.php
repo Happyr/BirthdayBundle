@@ -230,11 +230,6 @@ class BirthdayType extends AbstractType
         return $result;
     }
 
-    public function getParent()
-    {
-        return 'form';
-    }
-
     /**
      * Returns the name of this type.
      *
