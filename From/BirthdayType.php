@@ -72,16 +72,16 @@ class BirthdayType extends AbstractType
 
         $currentYear=date('Y');
         // Only pass a subset of the options to children
-        $yearOptions['attr']['placeholder'] = $options['placeholder']['year'];
+        $yearOptions['label'] =$yearOptions['attr']['placeholder'] = $options['placeholder']['year'];
         $yearOptions['attr']['min'] = $currentYear-$options['max_age'];
         $yearOptions['attr']['max'] = $currentYear-$options['min_age'];
 
         $monthOptions['choices'] = $this->formatTimestamps($formatter, '/[M|L]+/', $this->listMonths($options['months']));
-        $monthOptions['placeholder'] = $this->translator->trans($options['placeholder']['month']);
+        $dayOptions['label'] = $monthOptions['placeholder'] = $this->translator->trans($options['placeholder']['month']);
         $monthOptions['choice_translation_domain'] = false;
 
         $dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
-        $dayOptions['placeholder'] = $this->translator->trans($options['placeholder']['day']);
+        $dayOptions['label'] = $dayOptions['placeholder'] = $this->translator->trans($options['placeholder']['day']);
         $dayOptions['choice_translation_domain'] = false;
 
 
@@ -207,7 +207,7 @@ class BirthdayType extends AbstractType
             $formatter->setTimeZoneId($timezone);
         }
 
-        return $timestamps;
+        return array_flip($timestamps);
     }
 
     private function listMonths(array $months)
@@ -237,7 +237,7 @@ class BirthdayType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'happyr_birthday';
     }
